@@ -1,17 +1,17 @@
 import requests
 import json
-import simplejson
 import time
 
 
 class SongzaSong():
-    def __init__(self, account, song, extended = None):
+    def __init__(self, account, song, extended=None):
         self.account = account
         for item in song:
             setattr(self, item, song[item])
         if extended:
             for item in extended:
-                if item == "song": continue
+                if item == "song":
+                    continue
                 setattr(self, item, extended[item])
 
     def __repr__(self):
@@ -93,7 +93,7 @@ class SongzaAccount():
     def postv1(self, url, *args, **kwargs):
         return self.post('http://songza.com/api/1/%s' % url, *args, **kwargs)
 
-    def votes(self, vote = None):
+    def votes(self, vote=None):
         limit = 100
         offset = 0
         if vote is not None:
@@ -120,6 +120,11 @@ if __name__ == "__main__":
     songza.login()
     votes = songza.votes()
     for vote in votes:
-        print("%4s %s on %s" % vote)
+        for song in vote[2].enumerate():
+            print song
+        break
+    #for vote in votes:
+    #    print vote[2]
+    #    print("%4s %s on %s" % vote)
         #for song in vote[2].enumerate():
         #    print song.listen_url
