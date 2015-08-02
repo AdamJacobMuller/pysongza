@@ -15,13 +15,13 @@ class SongzaSong():
                 setattr(self, item, extended[item])
 
     def __repr__(self):
-        return '<SongzaSong %s / %s / %s >' % (self.artist['name'], self.album, self.title)
+        return '<SongzaSong %s / %s / %s >' % (self.artist['name'].encode("utf8"), self.album.encode("utf-8"), self.title.encode("utf-8"))
 
 
 class SongzaStation():
     def __init__(self, account, station):
         self.account = account
-        #print json.dumps(station, indent = 4)
+        # print json.dumps(station, indent = 4)
         for item in station:
             setattr(self, item, station[item])
 
@@ -63,7 +63,7 @@ class SongzaAccount():
             setattr(self, item, items[item])
 
     def get(self, url, *args, **kwargs):
-        #print 'url is %s' % url
+        # print 'url is %s' % url
         return self.session.get(url, *args, **kwargs)
 
     def post(self, url, *args, **kwargs):
@@ -120,11 +120,12 @@ if __name__ == "__main__":
     songza.login()
     votes = songza.votes()
     for vote in votes:
-        for song in vote[2].enumerate():
-            print song
-        break
+        print str(vote[1])
+    #     for song in vote[2].enumerate():
+    #         print song
+    #     break
     #for vote in votes:
     #    print vote[2]
     #    print("%4s %s on %s" % vote)
-        #for song in vote[2].enumerate():
-        #    print song.listen_url
+    #    for song in vote[2].enumerate():
+    #        print song.listen_url
